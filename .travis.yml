@@ -1,0 +1,43 @@
+# Auto-generated .travis.yml file
+# Generated 2020-11-25 09:59:39 from Bamboo build plan PLAT-SR
+
+language: java
+
+jdk:
+  - oraclejdk8
+
+dist: trusty
+
+addons:
+  artifacts: true
+
+stages:
+  - name: Build
+  - name: Release
+    if: fork = false AND (branch = master OR branch =~ /support\/.*/) AND type != pull_request AND commit_message !~ /\[no-release\]/
+
+jobs:
+  include:
+    - stage: "Build"
+      name: "Build war file"
+      script:
+        # Build war file
+        - mvn clean install
+        # Sonar
+        - mvn --batch-mode org.codehaus.mojo:sonar-maven-plugin:2.6:sonar
+      after_script:
+        - artifacts upload target/*.war
+    - stage: "Build"
+      name: "WhiteSource Scan"
+      script:
+        # WhiteSource License Check
+        - mvn clean org.whitesource:whitesource-maven-plugin:checkPolicies
+      after_script:
+        - artifacts upload target/site/whitesource/*
+    - stage: "Release"
+      name: "Release"
+      script:
+        # Release
+        - GIT_AUTHOR_NAME=alfresco-build GIT_AUTHOR_EMAIL=build@alfresco.com GIT_COMMITTER_NAME=alfresco-build GIT_COMMITTER_EMAIL=build@alfresco.com mvn --batch-mode -DreleaseVersion=${RELEASE_VERSION} -DdevelopmentVersion=${DEVELOPMENT_VERSION}  -DskipTests -Darguments=-DskipTests release:prepare release:perform
+      after_script:
+        - artifacts upload target/*.jar
