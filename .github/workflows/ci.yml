@@ -1,0 +1,21 @@
+name: Alfresco ROOT Web Application CI
+
+on:
+  pull_request:
+    branches:
+      - master
+      - support/**
+  push:
+    branches:
+      - master
+      - support/**
+  workflow_dispatch:
+
+jobs:
+  build_and_release:
+    name: "Build and Release"
+    uses: Alfresco/alfresco-build-tools/.github/workflows/build-and-release-maven.yml@v1.35.1
+    secrets: inherit
+    with:
+      release-branches: "^master$|^support/.+$"
+      build-args: "-Dmaven.javadoc.skip=true"
