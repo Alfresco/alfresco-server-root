@@ -2,7 +2,7 @@
   #%L
   Alfresco ROOT Web Application
   %%
-  Copyright (C) 2005 - 2018 Alfresco Software Limited
+  Copyright (C) 2005 - 2023 Alfresco Software Limited
   %%
   This file is part of the Alfresco software. 
   If the software was purchased under a paid Alfresco license, the terms of 
@@ -23,7 +23,7 @@
   along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
   #L%
   --%>
-<%@page isErrorPage="true" session="true" import="javax.servlet.ServletContext, javax.servlet.RequestDispatcher"
+<%@page isErrorPage="true" session="true" import="jakarta.servlet.ServletContext, jakarta.servlet.RequestDispatcher"
 %><%
 boolean alfrescoInstalled = false;
 String alfrescoContextName = "alfresco";
@@ -86,7 +86,7 @@ else
       <div class="push"></div>
    </div>
    <div class="footer">
-      Alfresco Software, Inc. &copy; 2005-2016 All rights reserved.
+      Alfresco Software, Inc. &copy; 2005-2023 All rights reserved.
    </div>
 </body>
 </html>
