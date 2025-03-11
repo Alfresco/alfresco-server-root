@@ -62,7 +62,7 @@ if(request.getMethod().equals("PROPFIND") || request.getMethod().equals("OPTIONS
          </div>
          
          <div class="index-list">
-            <p><a href="http://docs.alfresco.com/">Online Documentation</a></p>
+            <p><a href="https://support.hyland.com/p/alfresco">Online Documentation</a></p>
             <p></p>
 <%
 if(alfrescoInstalled)
