@@ -4,9 +4,11 @@ on:
   pull_request:
     branches:
       - master
+      - release/**
   push:
     branches:
       - master
+      - release/**
   workflow_dispatch:
 
 jobs:
@@ -16,3 +18,5 @@ jobs:
     secrets: inherit
     with:
       build-args: "-Dmaven.javadoc.skip=true"
+      # master releases the current major (8.x), release/<major>.N branches release patches for older lines (e.g. 7.x)
+      release-branches: '^(master|release/[0-9]+\.N)$'
